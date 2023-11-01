@@ -1,9 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:titok_flutter/constants/gaps.dart';
 import 'package:titok_flutter/constants/sizes.dart';
+import 'package:titok_flutter/features/authentication/email_screen.dart';
+import 'package:titok_flutter/features/authentication/widgets/form_button.dart';
 
-class UsernameScreen extends StatelessWidget {
+class UsernameScreen extends StatefulWidget {
   const UsernameScreen({super.key});
+
+  @override
+  State<UsernameScreen> createState() => _UsernameScreenState();
+}
+
+class _UsernameScreenState extends State<UsernameScreen> {
+  final TextEditingController _usernameController = TextEditingController();
+
+  String _username = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.addListener(() {
+      setState(() {
+        _username = _usernameController.text;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    super.dispose();
+  }
+
+  void _onNextTap() {
+    if (_username.isEmpty) return;
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const EmailScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +63,7 @@ class UsernameScreen extends StatelessWidget {
               ),
               Gaps.v16,
               TextField(
+                controller: _usernameController,
                 decoration: InputDecoration(
                     hintText: "Username",
                     enabledBorder: UnderlineInputBorder(
@@ -41,6 +78,10 @@ class UsernameScreen extends StatelessWidget {
                     )),
                 cursorColor: Theme.of(context).primaryColor,
               ),
+              Gaps.v16,
+              GestureDetector(
+                  onTap: _onNextTap,
+                  child: FormButton(disabled: _username.isEmpty)),
             ],
           ),
         ));
