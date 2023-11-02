@@ -131,10 +131,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     const Text("8 to 20 characters")
                   ],
                 ),
-                const Text('Your password must have:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
                 Gaps.v28,
                 GestureDetector(
                   onTap: _onSubmit,

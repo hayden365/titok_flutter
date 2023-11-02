@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:titok_flutter/constants/gaps.dart';
 import 'package:titok_flutter/constants/sizes.dart';
 import 'package:titok_flutter/features/authentication/widgets/form_button.dart';
+import 'package:titok_flutter/features/onboarding/interests_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
@@ -19,7 +20,11 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        print(formData.values);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const InterestsScreen(),
+          ),
+        );
       }
     }
   }
@@ -44,7 +49,10 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   hintText: 'Email',
                 ),
                 validator: (value) {
-                  return "i dont like your email";
+                  if (value != null && value.isEmpty) {
+                    return "Please write your email";
+                  }
+                  return null;
                 },
                 onSaved: (newValue) {
                   if (newValue != null) {
@@ -56,7 +64,10 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
               TextFormField(
                 decoration: const InputDecoration(hintText: 'Password'),
                 validator: (value) {
-                  return "wrong password";
+                  if (value != null && value.isEmpty) {
+                    return "Please write your password";
+                  }
+                  return null;
                 },
                 onSaved: (newValue) => (newValue) {
                   if (newValue != null) {
