@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:titok_flutter/constants/gaps.dart';
 import 'package:titok_flutter/constants/sizes.dart';
 import 'package:titok_flutter/features/authentication/email_screen.dart';
@@ -34,9 +35,10 @@ class _UsernameScreenState extends State<UsernameScreen> {
 
   void _onNextTap() {
     if (_username.isEmpty) return;
-    Navigator.of(context).push(
+    Navigator.push(
+      context,
       MaterialPageRoute(
-        builder: (context) => const EmailScreen(),
+        builder: (context) => EmailScreen(username: _username),
       ),
     );
   }
@@ -45,7 +47,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Sign up"),
+          title: const Text(
+            "Sign up",
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: Sizes.size36),

@@ -1,19 +1,34 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:titok_flutter/constants/gaps.dart';
 import 'package:titok_flutter/constants/sizes.dart';
 import 'package:titok_flutter/features/authentication/sign_up_screen.dart';
+import 'package:titok_flutter/features/main_navigation/main_navigation_screen.dart';
 import 'package:titok_flutter/features/onboarding/interests_screen.dart';
+import 'package:titok_flutter/firebase_options.dart';
+import 'package:titok_flutter/router.dart';
 
-void main() {
-  runApp(const TikTokApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(const ProviderScope(
+    child: TikTokApp(),
+  ));
 }
 
-class TikTokApp extends StatelessWidget {
-  const TikTokApp({Key? key}) : super(key: key);
+class TikTokApp extends ConsumerWidget {
+  const TikTokApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: ref.watch(routerProvider),
+      debugShowCheckedModeBanner: false,
       title: 'TikTok Clone',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
@@ -29,7 +44,6 @@ class TikTokApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const InterestsScreen(),
     );
   }
 }
