@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:titok_flutter/constants/gaps.dart';
 import 'package:titok_flutter/constants/sizes.dart';
 import 'package:titok_flutter/features/authentication/login_form_screen.dart';
 import 'package:titok_flutter/features/authentication/widgets/auth_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const routeURL = "/login";
-  static const routeName = "login";
-
   const LoginScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {
-    context.pop();
+    Navigator.of(context).pop();
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => const LoginFormScreen(),
-    ));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginFormScreen(),
+      ),
+    );
   }
 
   @override
@@ -33,26 +31,35 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               Gaps.v80,
-              const Text("Log in to TikTok",
-                  style: TextStyle(
-                      fontSize: Sizes.size24, fontWeight: FontWeight.w700)),
+              const Text(
+                "Log in to TikTok",
+                style: TextStyle(
+                  fontSize: Sizes.size24,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               Gaps.v20,
               const Text(
                 "Manage your account, check notifications, comment on videos, and more.",
-                style: TextStyle(fontSize: Sizes.size16, color: Colors.black45),
+                style: TextStyle(
+                  fontSize: Sizes.size16,
+                  color: Colors.black45,
+                ),
                 textAlign: TextAlign.center,
               ),
               Gaps.v40,
               GestureDetector(
                 onTap: () => _onEmailLoginTap(context),
                 child: const AuthButton(
-                    icon: FaIcon(FontAwesomeIcons.user),
-                    text: "Use email & password"),
+                  icon: FaIcon(FontAwesomeIcons.user),
+                  text: "Use email & password",
+                ),
               ),
               Gaps.v16,
               const AuthButton(
-                  icon: FaIcon(FontAwesomeIcons.apple),
-                  text: "Continue with Apple")
+                icon: FaIcon(FontAwesomeIcons.apple),
+                text: "Continue with Apple",
+              ),
             ],
           ),
         ),
@@ -61,20 +68,32 @@ class LoginScreen extends StatelessWidget {
         color: Colors.grey.shade50,
         elevation: 2,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: Sizes.size32),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Text("Don't have and account?"),
-            Gaps.h5,
-            GestureDetector(
-              onTap: () => _onSignUpTap(context),
-              child: Text(
-                'Sign up',
+          padding: const EdgeInsets.symmetric(
+            vertical: Sizes.size32,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Don't have an account?",
                 style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).primaryColor),
+                  fontSize: Sizes.size16,
+                ),
               ),
-            ),
-          ]),
+              Gaps.h5,
+              GestureDetector(
+                onTap: () => _onSignUpTap(context),
+                child: Text(
+                  "Sign up",
+                  style: TextStyle(
+                    fontSize: Sizes.size16,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

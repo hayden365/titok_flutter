@@ -7,7 +7,6 @@ import 'package:titok_flutter/features/authentication/sign_up_screen.dart';
 import 'package:titok_flutter/features/main_navigation/main_navigation_screen.dart';
 import 'package:titok_flutter/features/onboarding/interests_screen.dart';
 import 'package:titok_flutter/firebase_options.dart';
-import 'package:titok_flutter/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +25,7 @@ class TikTokApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp.router(
-      routerConfig: ref.watch(routerProvider),
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'TikTok Clone',
       theme: ThemeData(
@@ -44,6 +42,7 @@ class TikTokApp extends ConsumerWidget {
           ),
         ),
       ),
+      home: const MainNavigationScreen(),
     );
   }
 }
