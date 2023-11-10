@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:titok_flutter/constants/gaps.dart';
 import 'package:titok_flutter/constants/sizes.dart';
-import 'package:titok_flutter/features/authentication/email_screen.dart';
 import 'package:titok_flutter/features/authentication/view_models/signup_view_model.dart';
 import 'package:titok_flutter/features/authentication/widgets/form_button.dart';
-import 'package:titok_flutter/features/onboarding/interests_screen.dart';
 
 class BirthdayScreen extends ConsumerStatefulWidget {
   const BirthdayScreen({super.key});

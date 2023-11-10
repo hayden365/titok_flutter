@@ -1,11 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:titok_flutter/constants/gaps.dart';
 import 'package:titok_flutter/constants/sizes.dart';
-import 'package:titok_flutter/features/authentication/sign_up_screen.dart';
 import 'package:titok_flutter/features/main_navigation/main_navigation_screen.dart';
-import 'package:titok_flutter/features/onboarding/interests_screen.dart';
 import 'package:titok_flutter/firebase_options.dart';
 
 void main() async {
