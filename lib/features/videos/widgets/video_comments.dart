@@ -62,7 +62,7 @@ class _VideoCommentsState extends State<VideoComments> {
                     ),
                     Gaps.v3,
                     const Text(
-                        "That's not it I've seen the same thing but also in a cave")
+                        "That's not it I've seen the same thing but also in a cave That's not it I've seen the same thing but also in a cave")
                   ],
                 ),
               ),
@@ -80,6 +80,19 @@ class _VideoCommentsState extends State<VideoComments> {
                     style: TextStyle(color: Colors.grey.shade500),
                   ),
                 ],
+              )
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.white,
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 18,
+                backgroundColor: Colors.grey.shade500,
+                foregroundColor: Colors.white,
+                child: const Text("니꼬"),
               )
             ],
           ),
