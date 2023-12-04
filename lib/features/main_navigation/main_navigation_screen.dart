@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:titok_flutter/constants/gaps.dart';
 import 'package:titok_flutter/constants/sizes.dart';
 import 'package:titok_flutter/features/discover/discover_screen.dart';
+import 'package:titok_flutter/features/inbox/inbox_screen.dart';
 import 'package:titok_flutter/features/main_navigation/stf_screen.dart';
 import 'package:titok_flutter/features/main_navigation/widgets/nav_tab.dart';
 import 'package:titok_flutter/features/main_navigation/widgets/post_video_button.dart';
@@ -53,7 +54,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ),
         Offstage(
           offstage: _selectedIndex != 3,
-          child: const StfScreen(),
+          child: const InboxScreen(),
         ),
         Offstage(
           offstage: _selectedIndex != 4,

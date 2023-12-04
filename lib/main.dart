@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:titok_flutter/constants/sizes.dart';
+import 'package:titok_flutter/features/inbox/activity_screen.dart';
 import 'package:titok_flutter/features/main_navigation/main_navigation_screen.dart';
 import 'package:titok_flutter/firebase_options.dart';
 
@@ -31,6 +32,8 @@ class TikTokApp extends ConsumerWidget {
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color(0xFFE9435A),
         ),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         appBarTheme: const AppBarTheme(
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
@@ -42,7 +45,7 @@ class TikTokApp extends ConsumerWidget {
           ),
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const ActivityScreen(),
     );
   }
 }
