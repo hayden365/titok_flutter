@@ -14,6 +14,11 @@ class ActivityScreen extends StatefulWidget {
 class _ActivityScreenState extends State<ActivityScreen> {
   final List<String> _notifications = List.generate(20, (index) => "${index}h");
 
+  void _onDismissed(String notification) {
+    _notifications.remove(notification);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +41,10 @@ class _ActivityScreenState extends State<ActivityScreen> {
             ),
           ),
           Gaps.v14,
-          for (var notifications in _notifications)
+          for (var notification in _notifications)
             Dismissible(
-              key: Key(notifications),
+              key: Key(notification),
+              onDismissed: (direction) => _onDismissed(notification),
               background: Container(
                 alignment: Alignment.centerLeft,
                 color: Colors.green,
@@ -90,6 +96,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                     text: "Account updates:",
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
+                      color: Colors.black,
                       fontSize: Sizes.size16,
                     ),
                     children: [
@@ -100,7 +107,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                         ),
                       ),
                       TextSpan(
-                        text: " $notifications",
+                        text: " $notification",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Colors.grey.shade500,
