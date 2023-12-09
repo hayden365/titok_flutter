@@ -16,6 +16,8 @@ class _ActivityScreenState extends State<ActivityScreen>
     with SingleTickerProviderStateMixin {
   final List<String> _notifications = List.generate(20, (index) => "${index}h");
 
+  bool _showBarrier = false;
+
   final List<Map<String, dynamic>> _tabs = [
     {
       "title": "All activity",
@@ -47,19 +49,31 @@ class _ActivityScreenState extends State<ActivityScreen>
   late final Animation<double> _arrowAnimation =
       Tween(begin: 0.0, end: 0.5).animate(_animationController);
 
-  late final Animation<Offset> _offsetAnimation
+  late final Animation<Offset> _panelAnimation = Tween(
+    begin: const Offset(0, -1),
+    end: Offset.zero,
+  ).animate(_animationController);
+
+  late final Animation<Color?> _barrieerAnimation = ColorTween(
+    begin: Colors.transparent,
+    end: Colors.black38,
+  ).animate(_animationController);
 
   void _onDismissed(String notification) {
     _notifications.remove(notification);
     setState(() {});
   }
 
-  void _onTitleTap() {
+  void _toggleAnimations() async {
     if (_animationController.isCompleted) {
-      _animationController.reverse();
+      await _animationController.reverse();
     } else {
       _animationController.forward();
     }
+
+    setState(() {
+      _showBarrier = !_showBarrier;
+    });
   }
 
   @override
@@ -67,7 +81,7 @@ class _ActivityScreenState extends State<ActivityScreen>
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
-          onTap: _onTitleTap,
+          onTap: _toggleAnimations,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -185,39 +199,48 @@ class _ActivityScreenState extends State<ActivityScreen>
                 )
             ],
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(Sizes.size5),
-                bottomRight: Radius.circular(Sizes.size5),
+          if (_showBarrier)
+            AnimatedModalBarrier(
+              color: _barrieerAnimation,
+              dismissible: true,
+              onDismiss: _toggleAnimations,
+            ),
+          SlideTransition(
+            position: _panelAnimation,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(Sizes.size5),
+                  bottomRight: Radius.circular(Sizes.size5),
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var tab in _tabs)
+                    ListTile(
+                      title: Row(
+                        children: [
+                          FaIcon(
+                            tab["icon"],
+                            color: Colors.black,
+                            size: Sizes.size16,
+                          ),
+                          Gaps.h20,
+                          Text(
+                            tab["title"],
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
               ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (var tab in _tabs)
-                  ListTile(
-                    title: Row(
-                      children: [
-                        FaIcon(
-                          tab["icon"],
-                          color: Colors.black,
-                          size: Sizes.size16,
-                        ),
-                        Gaps.h20,
-                        Text(
-                          tab["title"],
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              ],
-            ),
-          )
+          ),
         ],
       ),
     );
