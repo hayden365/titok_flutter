@@ -45,7 +45,7 @@ class TikTokApp extends ConsumerWidget {
           ),
         ),
       ),
-      home: const ActivityScreen(),
+      home: const MainNavigationScreen(),
     );
   }
 }
