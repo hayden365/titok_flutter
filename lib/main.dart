@@ -1,13 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:titok_flutter/constants/sizes.dart';
+import 'package:titok_flutter/features/authentication/sign_up_screen.dart';
 import 'package:titok_flutter/features/inbox/activity_screen.dart';
 import 'package:titok_flutter/features/main_navigation/main_navigation_screen.dart';
 import 'package:titok_flutter/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -45,7 +53,7 @@ class TikTokApp extends ConsumerWidget {
           ),
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const SignUpScreen(),
     );
   }
 }
